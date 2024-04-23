@@ -6,7 +6,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from '@/components/ui/dialog'
-import {AddTaskFrom} from '../forms/AddTaskForm'
+import {AddTaskForm} from '../forms/AddTaskForm'
 import {cn} from '@/lib/utils/mergeCss'
 
 function AddTask({children, className}) {
@@ -18,7 +18,7 @@ function AddTask({children, className}) {
 			<DialogContent className="">
 				<DialogHeader>
 					<DialogTitle>Add New Task</DialogTitle>
-					<AddTaskFrom />
+					<AddTaskForm />
 				</DialogHeader>
 			</DialogContent>
 		</Dialog>

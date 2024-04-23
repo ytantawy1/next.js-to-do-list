@@ -4,38 +4,17 @@ import {useFormState} from 'react-dom'
 import {toast} from 'sonner'
 
 import {cn} from '@/lib/utils/mergeCss'
-import {addAction} from '@/actions/addTaskAction'
+import {deleteAction} from '@/actions/deleteTaskAction'
 import {FormControl, Input, Label} from '.'
 
 const initialState = {
 	message: 'default',
 }
 
-/* 
-             Communication between client - server 
-
-			 use the useFormState()  hook.
-			 const anyInitialState = {
-				property:value,
-				prop:value
-			 }
-
-			 const [state, formActionToRun] = useFormState(yourServerActionToRun, anyInitialState)
-			
-			
-			 <form action={formActionToRun}>
-
-
-			 Client sending to the Server
-			  <form action={yourServerAction}>
-
-
- 
- 
-*/
-function AddTaskForm({children, className}) {
+function DeleteTaskForm({children, className, uid, payload}) {
 	// formAction is for server and client communication
-	const [state, formAction] = useFormState(addAction, initialState)
+	const [state, formAction] = useFormState(deleteAction, initialState)
+	const {task, category} = payload
 
 	if (state.message === 'success') {
 		toast(
@@ -53,18 +32,23 @@ function AddTaskForm({children, className}) {
 				</h2>
 			</header>
 			<form action={formAction} className={cn('space-y-5  bg-white    py-8 px-4', className)}>
+			<FormControl>
+					<Input type="hidden" id="uid" name="uid" value={uid} />
+				</FormControl>
+				
+				
 				<FormControl className="flex flex-col">
 					<Label htmlFor="category">Category</Label>
-					<Input id="category" name="category" placeholder="enter the task category" />
+					<Input id="category" name="category" defaultValue={category} />
 				</FormControl>
 
 				<FormControl className="flex flex-col">
 					<Label htmlFor="task">Task</Label>
-					<Input id="task" name="task" placeholder="enter a new task" />
+					<Input id="task" name="task" defaultValue={task} />
 				</FormControl>
 				<FormControl className="pt-3">
 					<button className="bg-black text-white w-full py-2.5 rounded-lg mt-3 font-semibold">
-						Add New Task
+						Delete Task
 					</button>
 				</FormControl>
 			</form>
@@ -72,4 +56,4 @@ function AddTaskForm({children, className}) {
 	)
 }
 
-export {AddTaskForm}
+export {DeleteTaskForm}
